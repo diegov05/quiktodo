@@ -81,4 +81,20 @@ export class UserResolver {
 
         return user
     }
+
+    @Mutation(() => Boolean)
+    async deleteUser(
+        @Arg("id") id: number,
+        @Ctx() { prisma }: MyContext
+    ): Promise<Boolean> {
+        const user = await prisma.user.findUnique({ where: { id: id } })
+
+        if (!user) {
+            return false
+        }
+
+        await prisma.todo.deleteMany({ where: { userId: user } })
+        await prisma.user.delete({ where: { id: id } })
+        return true
+    }
 }
