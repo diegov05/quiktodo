@@ -53,47 +53,32 @@ export class UserResolver {
     @Mutation(() => User)
     async updateUser(
         @Arg('id') id: number,
-        @Arg('username', () => String, { nullable: true }) username: string,
-        @Arg('password', () => String, { nullable: true }) password: string,
+        @Arg('username', () => String, { nullable: true }) username: string | undefined,
+        @Arg('password', () => String, { nullable: true }) password: string | undefined,
         @Ctx() { prisma }: MyContext
     ): Promise<PrismaUser | null> {
         const user = await prisma.user.findUnique({ where: { id: id } })
         if (!user) {
             return null
         }
-        if (typeof username !== undefined && typeof password !== undefined) {
-            prisma.user.update({
-                where: {
-                    id: id
-                },
-                data: {
-                    username: username,
-                    password: password
-                }
+
+        if (username !== undefined && password !== undefined) {
+            await prisma.user.update({
+                where: { id: id },
+                data: { username: username, password: password }
+            })
+        } else if (username !== undefined) {
+            await prisma.user.update({
+                where: { id: id },
+                data: { username: username }
+            })
+        } else if (password !== undefined) {
+            await prisma.user.update({
+                where: { id: id },
+                data: { password: password }
             })
         }
-        if (typeof username !== undefined) {
-            prisma.user.update({
-                where: {
-                    id: id
-                },
-                data: {
-                    username: username,
-                    password: user.password
-                }
-            })
-        }
-        if (typeof password !== undefined) {
-            prisma.user.update({
-                where: {
-                    id: id
-                },
-                data: {
-                    username: user.username,
-                    password: password
-                }
-            })
-        }
+
         return user
     }
 }
