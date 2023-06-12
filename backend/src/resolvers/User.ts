@@ -18,17 +18,17 @@ export class User {
 export class UserResolver {
     @Query(() => [User])
     users(
-        @Ctx() ctx: MyContext
+        @Ctx() { prisma }: MyContext
     ): Promise<PrismaUser[]> {
-        return ctx.prisma.user.findMany()
+        return prisma.user.findMany()
     }
 
     @Query(() => User, { nullable: true })
     user(
         @Arg('id', () => Int) id: number,
-        @Ctx() ctx: MyContext
+        @Ctx() { prisma }: MyContext
     ): Promise<PrismaUser | null> {
-        return ctx.prisma.user.findUnique({
+        return prisma.user.findUnique({
             where: {
                 id: id
             }
@@ -39,9 +39,9 @@ export class UserResolver {
     async createUser(
         @Arg('username') username: string,
         @Arg('password') password: string,
-        @Ctx() ctx: MyContext
+        @Ctx() { prisma }: MyContext
     ): Promise<PrismaUser> {
-        const user = await ctx.prisma.user.create({
+        const user = await prisma.user.create({
             data: {
                 username: username,
                 password: password

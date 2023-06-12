@@ -1,5 +1,4 @@
 import { Field, ID, ObjectType } from 'type-graphql';
-import { Todo } from './Todo';
 
 @ObjectType()
 export class Tag {
@@ -11,7 +10,4 @@ export class Tag {
 
     @Field()
     color: string;
-
-    @Field(() => [Todo])
-    todos: Todo[];
 }
