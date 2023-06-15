@@ -1,6 +1,7 @@
 import { User as PrismaUser } from '@prisma/client';
 import { Arg, Ctx, Field, ID, Int, Mutation, ObjectType, Query, Resolver } from "type-graphql";
 import { MyContext } from 'src/types';
+import argon2 from 'argon2'
 
 @ObjectType()
 export class User {
@@ -41,11 +42,13 @@ export class UserResolver {
         @Arg('password') password: string,
         @Ctx() { prisma }: MyContext
     ): Promise<PrismaUser> {
+        const hashedPassword = await argon2.hash(password)
         const user = await prisma.user.create({
             data: {
                 username: username,
-                password: password
+                password: hashedPassword
             }
+
         })
         return user
     }
