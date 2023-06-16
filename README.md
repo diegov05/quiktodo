@@ -9,12 +9,12 @@ Todos App built with the PERN Stack. Using Prisma, Apollo and TypeGraphQL along 
 
 ### Technologies used:
 
-## Frontend:
+#### Frontend:
 * React (TypeScript)
 * ChakraUI
 * Tailwindcss
 
-## Backend:
+#### Backend:
 * Node.js
 * Express.js
 * PostgreSQL
