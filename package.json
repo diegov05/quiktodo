@@ -15,11 +15,15 @@
     "@chakra-ui/system": "^2.5.8",
     "@emotion/react": "^11.11.0",
     "@emotion/styled": "^11.11.0",
+    "@supabase/auth-helpers-react": "^0.4.2",
+    "@supabase/auth-ui-react": "^0.4.2",
+    "@supabase/auth-ui-shared": "^0.1.6",
     "chakra-react-select": "^4.6.0",
     "firebase": "^9.22.1",
     "framer-motion": "^10.12.16",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "zustand": "^4.4.1"
   },
   "devDependencies": {
     "@types/react": "^18.0.37",
@@ -32,6 +36,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.3.4",
     "postcss": "^8.4.24",
+    "supabase": "^1.83.7",
     "tailwindcss": "^3.3.2",
     "typescript": "^5.0.2",
     "vite": "^4.3.9"
